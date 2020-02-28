@@ -18,16 +18,12 @@ for (const key in rawObj) {
   const row = rawObj[key].trim().split(" ");
 
   if (key % 2 !== 0) {
-    library[libraryId].books = row.map(n => {
-      const bookId = parseInt(n);
-      return { id: bookId, score: scores[bookId] };
-    });
+    library[libraryId].books = row.map(n => ({
+      id: (bookId = parseInt(n)),
+      score: scores[bookId]
+    }));
 
-    books.push(
-      ...library[libraryId].books.map(b => {
-        return { ...b, libraryId };
-      })
-    );
+    books.push(...library[libraryId].books.map(b => ({ ...b, libraryId })));
     continue;
   }
 
@@ -43,9 +39,7 @@ for (const book of books)
 books = newBooksArr.slice(0, maxBooks);
 
 const orderLibraries = library
-  .map((lib, id) => {
-    return { id, order: lib.signupDays - lib.maxNumBooksPerDay };
-  })
+  .map((lib, id) => ({ id, order: lib.signupDays - lib.maxNumBooksPerDay }))
   .sort((a, b) => a.order - b.order);
 
 let output = orderLibraries.length.toString() + "\n";
