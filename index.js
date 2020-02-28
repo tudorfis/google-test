@@ -60,6 +60,8 @@ for (const orderObj of orderLibraries) {
     orderLibraries.indexOf(orderObj) !== orderLibraries.length - 1 ? "\n" : "";
 }
 
+fs.writeFile("./output.txt", output, _ => {});
+
 console.log(output);
 
 // /**
